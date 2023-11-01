@@ -1,0 +1,186 @@
+
+Lab16.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000016c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000118  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  0000016c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000019c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  000001dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007b9  00000000  00000000  00000204  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000722  00000000  00000000  000009bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000232  00000000  00000000  000010df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000084  00000000  00000000  00001314  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003ea  00000000  00000000  00001398  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000010f  00000000  00000000  00001782  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001891  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__ctors_end>
+   4:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   8:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  10:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  14:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  18:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  1c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  20:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  24:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  28:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  2c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  30:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  34:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  38:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  3c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  40:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  44:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  48:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  4c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  50:	0c 94 55 00 	jmp	0xaa	; 0xaa <__vector_20>
+  54:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  58:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  5c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  60:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  64:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  68:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  6c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  70:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  74:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  78:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+
+0000007c <__ctors_end>:
+  7c:	11 24       	eor	r1, r1
+  7e:	1f be       	out	0x3f, r1	; 63
+  80:	cf ef       	ldi	r28, 0xFF	; 255
+  82:	d8 e0       	ldi	r29, 0x08	; 8
+  84:	de bf       	out	0x3e, r29	; 62
+  86:	cd bf       	out	0x3d, r28	; 61
+  88:	0e 94 4a 00 	call	0x94	; 0x94 <main>
+  8c:	0c 94 8a 00 	jmp	0x114	; 0x114 <_exit>
+
+00000090 <__bad_interrupt>:
+  90:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000094 <main>:
+ * main -- Main program.
+ */
+int main(void)
+{
+	/* Set the baud rate to 19200 */
+	UBRR0 = 25; //(8000000/(16*19200)) - 1
+  94:	89 e1       	ldi	r24, 0x19	; 25
+  96:	90 e0       	ldi	r25, 0x00	; 0
+  98:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+  9c:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	/*
+	** Enable transmission and receiving via UART and also 
+	** enable the Receive Complete Interrupt.
+	** (See pages 194-195 of the datasheet)
+	*/
+	UCSR0B = (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0);
+  a0:	88 e9       	ldi	r24, 0x98	; 152
+  a2:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+
+	/* NOTE: No need to set UCSR0C - we just want the default value */
+
+	/* Enable interrupts */
+	sei();
+  a6:	78 94       	sei
+  a8:	ff cf       	rjmp	.-2      	; 0xa8 <main+0x14>
+
+000000aa <__vector_20>:
+/*
+ * Define the interrupt handler for UART Receive Complete - i.e. a new
+ * character has arrived in the UART Data Register (UDR).
+ */
+ISR(USART0_RX_vect)
+{
+  aa:	1f 92       	push	r1
+  ac:	0f 92       	push	r0
+  ae:	0f b6       	in	r0, 0x3f	; 63
+  b0:	0f 92       	push	r0
+  b2:	11 24       	eor	r1, r1
+  b4:	2f 93       	push	r18
+  b6:	3f 93       	push	r19
+  b8:	4f 93       	push	r20
+  ba:	5f 93       	push	r21
+  bc:	6f 93       	push	r22
+  be:	7f 93       	push	r23
+  c0:	8f 93       	push	r24
+  c2:	9f 93       	push	r25
+  c4:	af 93       	push	r26
+  c6:	bf 93       	push	r27
+  c8:	cf 93       	push	r28
+  ca:	df 93       	push	r29
+  cc:	ef 93       	push	r30
+  ce:	ff 93       	push	r31
+	char input;
+
+	/* Extract character from UART Data register and place in input
+	** variable
+	*/
+	input = UDR0;
+  d0:	c6 ec       	ldi	r28, 0xC6	; 198
+  d2:	d0 e0       	ldi	r29, 0x00	; 0
+  d4:	88 81       	ld	r24, Y
+
+	/* Convert character to upper case if it is lower case */
+	input = toupper(input);
+  d6:	90 e0       	ldi	r25, 0x00	; 0
+  d8:	0e 94 82 00 	call	0x104	; 0x104 <toupper>
+
+
+	/* Send the character back over the serial connection */
+	UDR0 = input;
+  dc:	88 83       	st	Y, r24
+}
+  de:	ff 91       	pop	r31
+  e0:	ef 91       	pop	r30
+  e2:	df 91       	pop	r29
+  e4:	cf 91       	pop	r28
+  e6:	bf 91       	pop	r27
+  e8:	af 91       	pop	r26
+  ea:	9f 91       	pop	r25
+  ec:	8f 91       	pop	r24
+  ee:	7f 91       	pop	r23
+  f0:	6f 91       	pop	r22
+  f2:	5f 91       	pop	r21
+  f4:	4f 91       	pop	r20
+  f6:	3f 91       	pop	r19
+  f8:	2f 91       	pop	r18
+  fa:	0f 90       	pop	r0
+  fc:	0f be       	out	0x3f, r0	; 63
+  fe:	0f 90       	pop	r0
+ 100:	1f 90       	pop	r1
+ 102:	18 95       	reti
+
+00000104 <toupper>:
+ 104:	91 11       	cpse	r25, r1
+ 106:	08 95       	ret
+ 108:	81 56       	subi	r24, 0x61	; 97
+ 10a:	8a 51       	subi	r24, 0x1A	; 26
+ 10c:	08 f4       	brcc	.+2      	; 0x110 <toupper+0xc>
+ 10e:	80 52       	subi	r24, 0x20	; 32
+ 110:	85 58       	subi	r24, 0x85	; 133
+ 112:	08 95       	ret
+
+00000114 <_exit>:
+ 114:	f8 94       	cli
+
+00000116 <__stop_program>:
+ 116:	ff cf       	rjmp	.-2      	; 0x116 <__stop_program>

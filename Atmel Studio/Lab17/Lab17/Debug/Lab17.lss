@@ -1,0 +1,360 @@
+
+Lab17.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000214  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001c0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000214  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000244  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000284  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a0e  00000000  00000000  000002b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000007c7  00000000  00000000  00000cc2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003f1  00000000  00000000  00001489  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  0000187c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000431  00000000  00000000  000018c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000193  00000000  00000000  00001cf1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  00001e84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__ctors_end>
+   4:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   8:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+   c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  10:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  14:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  18:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  1c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  20:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  24:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  28:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  2c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  30:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  34:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  38:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  3c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  40:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  44:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  48:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  4c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  50:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  54:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  58:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  5c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  60:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  64:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  68:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  6c:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  70:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  74:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+  78:	0c 94 48 00 	jmp	0x90	; 0x90 <__bad_interrupt>
+
+0000007c <__ctors_end>:
+  7c:	11 24       	eor	r1, r1
+  7e:	1f be       	out	0x3f, r1	; 63
+  80:	cf ef       	ldi	r28, 0xFF	; 255
+  82:	d8 e0       	ldi	r29, 0x08	; 8
+  84:	de bf       	out	0x3e, r29	; 62
+  86:	cd bf       	out	0x3d, r28	; 61
+  88:	0e 94 5f 00 	call	0xbe	; 0xbe <main>
+  8c:	0c 94 de 00 	jmp	0x1bc	; 0x1bc <_exit>
+
+00000090 <__bad_interrupt>:
+  90:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000094 <spi_setup_master>:
+
+void spi_setup_master(void) {
+	// Set up SPI communication as a master
+	// Make the SS, MOSI and SCK pins outputs. These are pins
+	// 4, 5 and 7 of port B on the ATmega324A
+	DDRB |= (1 << 4) | (1 << 5) | (1 << 7);
+  94:	84 b1       	in	r24, 0x04	; 4
+  96:	80 6b       	ori	r24, 0xB0	; 176
+  98:	84 b9       	out	0x04, r24	; 4
+	
+	// Set the slave select (SS) line high
+	PORTB |= (1 << 4);
+  9a:	85 b1       	in	r24, 0x05	; 5
+  9c:	80 61       	ori	r24, 0x10	; 16
+  9e:	85 b9       	out	0x05, r24	; 5
+	
+	// Set up the SPI control registers SPCR0 and SPSR0
+	// - SPE0 bit = 1 (SPI is enabled)
+	// - MSTR0 bit = 1 (Master Mode)
+	SPCR0 = (1 << SPE0) | (1 << MSTR0);
+  a0:	80 e5       	ldi	r24, 0x50	; 80
+  a2:	8c bd       	out	0x2c, r24	; 44
+	
+	// Set SPR00 and SPR01 bits in SPCR0 and SPI2X0 bit in SPSR0
+	// based on a clock divider of 128
+	SPSR0 = 0x00;
+  a4:	1d bc       	out	0x2d, r1	; 45
+	SPCR0 |= (1 << SPR10) | (1 << SPR00);
+  a6:	8c b5       	in	r24, 0x2c	; 44
+  a8:	83 60       	ori	r24, 0x03	; 3
+  aa:	8c bd       	out	0x2c, r24	; 44
+	
+	// Take SS (slave select) line low
+	PORTB &= (0 << 4);
+  ac:	85 b1       	in	r24, 0x05	; 5
+  ae:	15 b8       	out	0x05, r1	; 5
+  b0:	08 95       	ret
+
+000000b2 <spi_send_byte>:
+	// the transfer. We then wait until the most significant byte of
+	// SPSR0 (SPIF0 bit) is set - this indicates that the transfer is
+	// complete. (The final read of SPSR0 followed by a read of SPDR0
+	// will cause the SPIF0 bit to be reset to 0. See page 173 of the
+	// ATmega324A datasheet (2018 version).)
+	SPDR0 = byte;
+  b2:	8e bd       	out	0x2e, r24	; 46
+	while((SPSR0 & (1<<SPIF0)) == 0) {
+  b4:	0d b4       	in	r0, 0x2d	; 45
+  b6:	07 fe       	sbrs	r0, 7
+  b8:	fd cf       	rjmp	.-6      	; 0xb4 <spi_send_byte+0x2>
+		; // wait
+	}
+	return SPDR0;
+  ba:	8e b5       	in	r24, 0x2e	; 46
+}
+  bc:	08 95       	ret
+
+000000be <main>:
+/* Function prototypes */
+void spi_setup_master(void);
+uint8_t spi_send_byte(uint8_t byte);
+
+int main(void) {
+	spi_setup_master();
+  be:	0e 94 4a 00 	call	0x94	; 0x94 <spi_setup_master>
+	
+	spi_send_byte(0x0F); /* Clear screen */
+  c2:	8f e0       	ldi	r24, 0x0F	; 15
+  c4:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  c8:	2f ef       	ldi	r18, 0xFF	; 255
+  ca:	89 e6       	ldi	r24, 0x69	; 105
+  cc:	98 e1       	ldi	r25, 0x18	; 24
+  ce:	21 50       	subi	r18, 0x01	; 1
+  d0:	80 40       	sbci	r24, 0x00	; 0
+  d2:	90 40       	sbci	r25, 0x00	; 0
+  d4:	e1 f7       	brne	.-8      	; 0xce <main+0x10>
+  d6:	00 c0       	rjmp	.+0      	; 0xd8 <main+0x1a>
+  d8:	00 00       	nop
+	_delay_ms(1000);
+	
+	spi_send_byte(0x10); /* Test pattern */
+  da:	80 e1       	ldi	r24, 0x10	; 16
+  dc:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+  e0:	2f ef       	ldi	r18, 0xFF	; 255
+  e2:	83 ed       	ldi	r24, 0xD3	; 211
+  e4:	90 e3       	ldi	r25, 0x30	; 48
+  e6:	21 50       	subi	r18, 0x01	; 1
+  e8:	80 40       	sbci	r24, 0x00	; 0
+  ea:	90 40       	sbci	r25, 0x00	; 0
+  ec:	e1 f7       	brne	.-8      	; 0xe6 <main+0x28>
+  ee:	00 c0       	rjmp	.+0      	; 0xf0 <main+0x32>
+  f0:	00 00       	nop
+	_delay_ms(2000);
+
+	spi_send_byte(0x0F); /* Clear screen */
+  f2:	8f e0       	ldi	r24, 0x0F	; 15
+  f4:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+	/* Take every pixel from black through to
+	** bright green through to yellow through to
+	** red and then back to black (off).
+	*/
+	while(1) {
+		spi_send_byte(0x00);
+  f8:	80 e0       	ldi	r24, 0x00	; 0
+  fa:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+		
+		for(int i=0; i<= 15; i++) {
+  fe:	00 e0       	ldi	r16, 0x00	; 0
+ 100:	10 e0       	ldi	r17, 0x00	; 0
+ 102:	11 c0       	rjmp	.+34     	; 0x126 <main+0x68>
+			spi_send_byte(0x00);
+ 104:	80 e0       	ldi	r24, 0x00	; 0
+ 106:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+			for(int k=0; k<= 127; k++) {
+ 10a:	c0 e0       	ldi	r28, 0x00	; 0
+ 10c:	d0 e0       	ldi	r29, 0x00	; 0
+ 10e:	06 c0       	rjmp	.+12     	; 0x11c <main+0x5e>
+				spi_send_byte(i*16);
+ 110:	80 2f       	mov	r24, r16
+ 112:	82 95       	swap	r24
+ 114:	80 7f       	andi	r24, 0xF0	; 240
+ 116:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+	while(1) {
+		spi_send_byte(0x00);
+		
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+			for(int k=0; k<= 127; k++) {
+ 11a:	21 96       	adiw	r28, 0x01	; 1
+ 11c:	c0 38       	cpi	r28, 0x80	; 128
+ 11e:	d1 05       	cpc	r29, r1
+ 120:	bc f3       	brlt	.-18     	; 0x110 <main+0x52>
+	** red and then back to black (off).
+	*/
+	while(1) {
+		spi_send_byte(0x00);
+		
+		for(int i=0; i<= 15; i++) {
+ 122:	0f 5f       	subi	r16, 0xFF	; 255
+ 124:	1f 4f       	sbci	r17, 0xFF	; 255
+ 126:	00 31       	cpi	r16, 0x10	; 16
+ 128:	11 05       	cpc	r17, r1
+ 12a:	64 f3       	brlt	.-40     	; 0x104 <main+0x46>
+ 12c:	00 e0       	ldi	r16, 0x00	; 0
+ 12e:	10 e0       	ldi	r17, 0x00	; 0
+ 130:	10 c0       	rjmp	.+32     	; 0x152 <main+0x94>
+			for(int k=0; k<= 127; k++) {
+				spi_send_byte(i*16);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+ 132:	80 e0       	ldi	r24, 0x00	; 0
+ 134:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+			for(int k=0; k <= 127; k++) {
+ 138:	c0 e0       	ldi	r28, 0x00	; 0
+ 13a:	d0 e0       	ldi	r29, 0x00	; 0
+ 13c:	05 c0       	rjmp	.+10     	; 0x148 <main+0x8a>
+				spi_send_byte(240+i);
+ 13e:	80 ef       	ldi	r24, 0xF0	; 240
+ 140:	80 0f       	add	r24, r16
+ 142:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+				spi_send_byte(i*16);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+			for(int k=0; k <= 127; k++) {
+ 146:	21 96       	adiw	r28, 0x01	; 1
+ 148:	c0 38       	cpi	r28, 0x80	; 128
+ 14a:	d1 05       	cpc	r29, r1
+ 14c:	c4 f3       	brlt	.-16     	; 0x13e <main+0x80>
+			spi_send_byte(0x00);
+			for(int k=0; k<= 127; k++) {
+				spi_send_byte(i*16);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+ 14e:	0f 5f       	subi	r16, 0xFF	; 255
+ 150:	1f 4f       	sbci	r17, 0xFF	; 255
+ 152:	00 31       	cpi	r16, 0x10	; 16
+ 154:	11 05       	cpc	r17, r1
+ 156:	6c f3       	brlt	.-38     	; 0x132 <main+0x74>
+ 158:	00 e0       	ldi	r16, 0x00	; 0
+ 15a:	10 e0       	ldi	r17, 0x00	; 0
+ 15c:	15 c0       	rjmp	.+42     	; 0x188 <main+0xca>
+			for(int k=0; k <= 127; k++) {
+				spi_send_byte(240+i);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+ 15e:	80 e0       	ldi	r24, 0x00	; 0
+ 160:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+			for(int k=0; k <= 127; k++) {
+ 164:	c0 e0       	ldi	r28, 0x00	; 0
+ 166:	d0 e0       	ldi	r29, 0x00	; 0
+ 168:	0a c0       	rjmp	.+20     	; 0x17e <main+0xc0>
+				spi_send_byte((15-i)*16+15);
+ 16a:	8f e0       	ldi	r24, 0x0F	; 15
+ 16c:	90 e0       	ldi	r25, 0x00	; 0
+ 16e:	80 1b       	sub	r24, r16
+ 170:	91 0b       	sbc	r25, r17
+ 172:	82 95       	swap	r24
+ 174:	80 7f       	andi	r24, 0xF0	; 240
+ 176:	81 5f       	subi	r24, 0xF1	; 241
+ 178:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+				spi_send_byte(240+i);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+			for(int k=0; k <= 127; k++) {
+ 17c:	21 96       	adiw	r28, 0x01	; 1
+ 17e:	c0 38       	cpi	r28, 0x80	; 128
+ 180:	d1 05       	cpc	r29, r1
+ 182:	9c f3       	brlt	.-26     	; 0x16a <main+0xac>
+			spi_send_byte(0x00);
+			for(int k=0; k <= 127; k++) {
+				spi_send_byte(240+i);
+			}
+		}
+		for(int i=0; i<= 15; i++) {
+ 184:	0f 5f       	subi	r16, 0xFF	; 255
+ 186:	1f 4f       	sbci	r17, 0xFF	; 255
+ 188:	00 31       	cpi	r16, 0x10	; 16
+ 18a:	11 05       	cpc	r17, r1
+ 18c:	44 f3       	brlt	.-48     	; 0x15e <main+0xa0>
+ 18e:	00 e0       	ldi	r16, 0x00	; 0
+ 190:	10 e0       	ldi	r17, 0x00	; 0
+ 192:	10 c0       	rjmp	.+32     	; 0x1b4 <main+0xf6>
+			for(int k=0; k <= 127; k++) {
+				spi_send_byte((15-i)*16+15);
+			}
+		}	
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+ 194:	80 e0       	ldi	r24, 0x00	; 0
+ 196:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+			for(int k=0; k <= 127; k++) {
+ 19a:	c0 e0       	ldi	r28, 0x00	; 0
+ 19c:	d0 e0       	ldi	r29, 0x00	; 0
+ 19e:	05 c0       	rjmp	.+10     	; 0x1aa <main+0xec>
+				spi_send_byte(15-i);
+ 1a0:	8f e0       	ldi	r24, 0x0F	; 15
+ 1a2:	80 1b       	sub	r24, r16
+ 1a4:	0e 94 59 00 	call	0xb2	; 0xb2 <spi_send_byte>
+				spi_send_byte((15-i)*16+15);
+			}
+		}	
+		for(int i=0; i<= 15; i++) {
+			spi_send_byte(0x00);
+			for(int k=0; k <= 127; k++) {
+ 1a8:	21 96       	adiw	r28, 0x01	; 1
+ 1aa:	c0 38       	cpi	r28, 0x80	; 128
+ 1ac:	d1 05       	cpc	r29, r1
+ 1ae:	c4 f3       	brlt	.-16     	; 0x1a0 <main+0xe2>
+			spi_send_byte(0x00);
+			for(int k=0; k <= 127; k++) {
+				spi_send_byte((15-i)*16+15);
+			}
+		}	
+		for(int i=0; i<= 15; i++) {
+ 1b0:	0f 5f       	subi	r16, 0xFF	; 255
+ 1b2:	1f 4f       	sbci	r17, 0xFF	; 255
+ 1b4:	00 31       	cpi	r16, 0x10	; 16
+ 1b6:	11 05       	cpc	r17, r1
+ 1b8:	6c f3       	brlt	.-38     	; 0x194 <main+0xd6>
+ 1ba:	9e cf       	rjmp	.-196    	; 0xf8 <main+0x3a>
+
+000001bc <_exit>:
+ 1bc:	f8 94       	cli
+
+000001be <__stop_program>:
+ 1be:	ff cf       	rjmp	.-2      	; 0x1be <__stop_program>
